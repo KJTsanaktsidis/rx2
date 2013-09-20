@@ -1,0 +1,98 @@
+﻿#states:
+NORMAL,
+CHARCLASS,
+ESCAPE
+
+#Lexer
+state NORMAL:
+	STAROP			-> *
+	PLUSOP			-> +
+	OPTIONALOP		-> ?
+	OPENCLASS		-> [	TransitionTo(CHARCLASS)
+	OPENCLASSNEGATE	-> [^	TransitionTo(CHARCLASS)
+	OPENGROUP		-> (
+	OPENGROUPNOCAP	-> (?:
+	CLOSEGROUP		-> )
+	ALTERNATIVE		-> |
+	ESCAPESLASH		-> \	TransitionTo(ESCAPE)
+	ANY				-> .
+	STARTANCHOR		-> ^
+	ENDANCHOR		-> $
+	CHAR			-> Not( *+?[]()|\.^$ )
+	EOF				-> eof
+state CHARCLASS:
+	CLOSECLASS		-> ]	TransitionTo(NORMAL)
+	ESCAPE			-> \	TransitionTo(ESCAPE)
+	RANGEMARK		-> -
+	CHAR			-> Not( ^]\- )
+	EOF				-> eof
+state ESCAPE:
+	CHAR			-> Any
+
+
+#Grammar
+#charclass stuff
+(01) CharClassOpening	-> OPENCLASS
+						 | OPENCLASSNEGATE
+(02) CharClass			-> CharClassOpening CharClassBody CLOSECLASS
+						 | CHAR
+(03) CharClassBody		-> CharClassElement CharClassBody
+						 | e
+(04) CharClassElement	-> CHAR CharClassRangeM
+(05) CharClassRangeM	-> RANGEMARK CHAR
+						 | e
+
+(06) UnaryOp			-> STAROP
+						 | PLUSOP
+						 | OPTIONALOP
+						 | e
+(07) GroupOpening		-> OPENGROUP
+						 | OPENGROUPNOCAP
+(08) MatchFactor		-> CharClass
+						 | GroupOpening RegexBody CLOSEGROUP
+						 | ANY
+(09) MatchFactorOp		-> MatchFactor UnaryOp
+(10) MatchFactorList	-> MatchFactorOp MatchFactorList
+						 | e
+
+(11) RegexBody			-> MatchFactorList AlternativeRest
+(12) AlternativeRest	-> ALTERNATIVE AlternativeRest
+						 | e
+(13) RegexStart			-> STARTANCHOR
+						 | e
+(14) RegexEnd			-> ENDANCHOR
+						 | e
+(15) Regex				-> RegexStart RegexBody RegexEnd
+
+#sets
+First(CharClassOpening)			= {OPENCLASS, OPENCLASSNEGATE}
+First(CharClass)				= {OPENCLASS, OPENCLASSNEGATE, CHAR}
+First(CharClassBody)			= {CHAR, e}
+First(CharClassElement)			= {CHAR}
+First(CharClassRangeM)			= {RANGEMARK, e}
+First(UnaryOp)					= {STARTOP, PLUSOP, OPTIONALOP, e}
+First(GroupOpening)				= {OPENGROUP, OPENGROUPNOCAP}
+First(MatchFactor)				= {OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ANY}
+First(MatchFactorOp)			= {OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ANY}
+First(MatchFactorList)			= {OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ANY, e}
+First(RegexBody)				= {ALTERNATIVE, OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ANY, e}
+First(AlternativeRest)			= {ALTERNATIVE, e}
+First(RegexStart)				= {STARTANCHOR, e}
+First(RegexEnd)					= {ENDANCHOR, e}
+First(Regex)					= {STARTANCHOR, ENDANCHOR, ALTERNATIVE, OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ANY, e}
+
+Follow(CharClassOpening)		= {CLOSECLASS, CHAR}
+Follow(CharClass)				= {STAROP, PLUSOP, OPTIONALOP, OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ALTERNATIVE, CLOSEGROUP, ENDANCHOR, ANY, EOF}
+Follow(CharClassBody)			= {CLOSECLASS}
+Follow(CharClassElement)		= {CHAR, CLOSECLASS}
+Follow(CharClassRangeM)			= {CHAR, CLOSECLASS}
+Follow(UnaryOp)					= {OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ALTERNATIVE, CLOSEGROUP, ENDANCHOR, ANY, EOF}
+Follow(GroupOpening)			= {ALTERNATIVE, OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, CLOSEGROUP, ANY}
+Follow(MatchFactor)				= {STAROP, PLUSOP, OPTIONALOP, OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ALTERNATIVE, CLOSEGROUP, ENDANCHOR, ANY, EOF}
+Follow(MatchFactorOp)			= {OPENCLASS, OPENCLASSNEGATE, CHAR, OPENGROUP, OPENGROUPNOCAP, ALTERNATIVE, CLOSEGROUP, ENDANCHOR, ANY, EOF}
+Follow(MatchFactorList)			= {ALTERNATIVE, ENDANCHOR, CLOSEGROUP, EOF}
+Follow(RegexBody)				= {ENDANCHOR, CLOSEGROUP, EOF}
+Follow(AlternativeRest)			= {ENDANCHOR, CLOSEGROUP, EOF}
+Follow(RegexStart)				= {ENDANCHOR, CHAR, OPENCLASS, OPENCLASSNEGATE, OPENGROUP, OPENGROUPNOCAP, ALTERNATIVE, ANY, EOF}
+Follow(RegexEnd)				= {EOF}
+Follow(Regex)					= {EOF}

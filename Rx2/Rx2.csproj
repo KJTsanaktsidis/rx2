@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rx2</RootNamespace>
+    <AssemblyName>Rx2</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AST\AlternativeNode.cs" />
+    <Compile Include="AST\CharacterClassMatchNode.cs" />
+    <Compile Include="AST\GroupMatchNode.cs" />
+    <Compile Include="AST\MatchFactorNode.cs" />
+    <Compile Include="AST\RegexNode.cs" />
+    <Compile Include="Automaton\DFAGraph.cs" />
+    <Compile Include="Automaton\DFAState.cs" />
+    <Compile Include="Automaton\Dictionary2D.cs" />
+    <Compile Include="Automaton\NFAState.cs" />
+    <Compile Include="Automaton\NFAGraph.cs" />
+    <Compile Include="Automaton\StateFactory.cs" />
+    <Compile Include="CharClassSupport\CharacterClass.cs" />
+    <Compile Include="CharClassSupport\CharacterClassComparer.cs" />
+    <Compile Include="CharClassSupport\CharacterClassMapper.cs" />
+    <Compile Include="CodeGen\DelegateSupport.cs" />
+    <Compile Include="CodeGen\DFADelegateGenerator.cs" />
+    <Compile Include="CodeGen\ExampleGen.cs" />
+    <Compile Include="Lexer\CharToken.cs" />
+    <Compile Include="Lexer\Token.cs" />
+    <Compile Include="Lexer\TokenStream.cs" />
+    <Compile Include="Lexer\TokenTypes.cs" />
+    <Compile Include="Parser\ParseException.cs" />
+    <Compile Include="Parser\RDParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="grammar.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tables.xlsx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

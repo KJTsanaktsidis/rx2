@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regex", "Regex\Regex.csproj", "{45412AB3-14B6-40A0-AE60-E5895681B11A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D7EDBCF3-761C-4E36-B4F0-4D35356EE595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rx2", "Rx2\Rx2.csproj", "{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45412AB3-14B6-40A0-AE60-E5895681B11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45412AB3-14B6-40A0-AE60-E5895681B11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45412AB3-14B6-40A0-AE60-E5895681B11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45412AB3-14B6-40A0-AE60-E5895681B11A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7EDBCF3-761C-4E36-B4F0-4D35356EE595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7EDBCF3-761C-4E36-B4F0-4D35356EE595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7EDBCF3-761C-4E36-B4F0-4D35356EE595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7EDBCF3-761C-4E36-B4F0-4D35356EE595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6543A0-A184-48DA-B9FA-99EA8CEAF48F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
